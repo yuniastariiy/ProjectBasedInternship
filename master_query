@@ -1,0 +1,22 @@
+SELECT
+    c.CustomerEmail AS CustomerEmail,
+    c.CustomerCity AS CustomerCity,
+    o.Date AS OrderDate, -- Menggunakan 'Date' dari tabel Orders
+    o.Quantity AS OrderQty, -- Menggunakan 'Quantity' dari tabel Orders
+    p.ProdName AS ProductName,
+    p.Price AS ProductPrice,
+    pc.CategoryName AS ProductCategoryName,
+    (o.Quantity * p.Price) AS TotalSales -- Menghitung TotalSales
+FROM
+    `muamalat_pbi.Orders` AS o
+JOIN
+    `muamalat_pbi.Customers` AS c
+    ON o.CustomerID = c.CustomerID
+JOIN
+    `muamalat_pbi.Products` AS p
+    ON o.ProdNumber = p.ProdNumber
+JOIN
+    `muamalat_pbi.ProductCategory` AS pc
+    ON p.Category = pc.CategoryID
+ORDER BY
+    OrderDate ASC;
